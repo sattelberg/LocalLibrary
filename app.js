@@ -7,18 +7,25 @@ var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var mongoose = require('mongoose');
+var mysql = require('mysql');
 var app = express();
 //db setup
-mongoose.connect('ds231720.mlab.com:31720/locallibrary');
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error',console.error.bind(console, 'MongoDB connection error:'));
+var mysql = require('mysql')
+var connection = mysql.createConnection({
+  host     : 'db4free.net',
+  user     : 'express',
+  password : 'writteninjavascript',
+  database : 'expressprojects'
+});
+
+connection.connect()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(favicon(path.join(__dirname,'public',favicon.ico')));
+//middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
